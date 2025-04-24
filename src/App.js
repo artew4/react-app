@@ -25,7 +25,7 @@ const App = () => {
   return (
     <div className="app-container">
       <div className="app-content">
-        <h1>Механическая работа vs Угол наклона</h1>
+        <h1>Механическая работа лол vs Угол наклона</h1>
         <div className="input-container">
           <label className="input-label">Масса (кг):</label>
           <input
