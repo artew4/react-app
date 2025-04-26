@@ -1,31 +1,33 @@
 import React, { useState } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
-import './App.scss'; // Подключаем SCSS
+import { MathJaxContext, MathJax } from 'better-react-mathjax';
+import { generateWorkData } from "./utils/physicsEngine";
+import './styles/App.scss'; // Подключаем SCSS
 
 const App = () => {
-  const [mass, setMass] = useState(10); // кг
-  const [distance, setDistance] = useState(5); // м
+  const [mass, setMass] = useState(10);
+  const [distance, setDistance] = useState(5);
 
-  const g = 9.8; // м/с²
-
-  // Генерация данных для графика
-  const generateData = () => {
-    const data = [];
-    for (let angle = 5; angle <= 60; angle += 5) {
-      const theta = (Math.PI / 180) * angle;
-      const force = mass * g * Math.sin(theta);
-      const work = force * distance;
-      data.push({ angle, work: +work.toFixed(2) });
-    }
-    return data;
-  };
-
-  const data = generateData();
+  const data = generateWorkData(mass, distance);
 
   return (
     <div className="app-container">
       <div className="app-content">
-        <h1>Механическая работа лол vs Угол наклона</h1>
+        <h1>Механическая работа vs Угол наклона</h1>
+
+        <MathJaxContext>
+        <div className="formulas">
+          <h2>Формулы расчётов:</h2>
+          <MathJax>
+            {"\\( F = mg \\sin(\\theta) \\)"}
+          </MathJax>
+          <MathJax>
+            {"\\( A = F \\cdot S \\)"}
+          </MathJax>
+        </div>
+        </MathJaxContext>
+
+
         <div className="input-container">
           <label className="input-label">Масса (кг):</label>
           <input

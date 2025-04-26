@@ -1,70 +1,52 @@
-# Getting Started with Create React App
+# ⚙️ Визуализатор механической работы
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Интерактивное веб-приложение на React, которое помогает наглядно изучить, как зависит механическая работа от угла наклона поверхности. Подходит для школьников 7 класса, студентов и всех, кто интересуется физикой.
 
-## Available Scripts
+![Preview](./public/preview.png) <!-- сюда можешь вставить скриншот приложения -->
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 📐 Что делает приложение
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+🔹 Строит график зависимости механической работы от угла наклона поверхности.  
+🔹 Позволяет задавать массу тела и путь.  
+🔹 Отображает физические формулы, использованные в расчётах.  
+🔹 Весь расчёт происходит в реальном времени — удобно для объяснения на уроке.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 📊 Формулы, используемые в приложении
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Механическая работа тела, скользящего по наклонной плоскости без трения, рассчитывается по формулам:
 
-### `npm run build`
+\[
+F = m \cdot g \cdot \sin(\theta)
+\]
+\[
+A = F \cdot S
+\]
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Где:  
+- \( F \) — сила, действующая вдоль наклонной  
+- \( A \) — механическая работа  
+- \( m \) — масса тела  
+- \( g = 9.8 \, м/с^2 \) — ускорение свободного падения  
+- \( \theta \) — угол наклона  
+- \( S \) — путь (длина наклонной)  
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🧮 Пример кода расчёта
 
-### `npm run eject`
+Логика расчётов вынесена в файл [`physicsEngine.js`](./src/utils/physicsEngine.js):
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```js
+function calculateForce (mass, g = 9.8, theta = 90) {
+  let radians = theta * Math.PI / 180;
+  return mass * g * Math.sin(radians);
+}
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+function calculateWork (force, distance) {
+  return force * distance;
+}
+```
